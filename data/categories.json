@@ -1,0 +1,66 @@
+[
+  {
+    "id": "5c0958e1-4b6f-4aba-bc86-88aa497aaeec",
+    "createdAt": "2026-04-16T14:08:46.529Z",
+    "updatedAt": "2026-04-16T14:09:17.343Z",
+    "name": "Growing Media",
+    "slug": "growing-media",
+    "description": "Updated via API smoke test"
+  },
+  {
+    "id": "c913dfb1-9a15-400d-a23c-bb454e30eb32",
+    "createdAt": "2026-04-16T14:07:02.321Z",
+    "updatedAt": "2026-04-16T14:09:57.254Z",
+    "name": "Bio Fertilizers",
+    "slug": "bio-fertilizers",
+    "description": "Living microorganisms that naturally improve nutrient availability and crop resilience."
+  },
+  {
+    "id": "c9ea36c3-db80-4d5b-99d6-53570198d4f9",
+    "createdAt": "2026-04-16T14:07:02.321Z",
+    "updatedAt": "2026-04-16T14:07:02.321Z",
+    "name": "Bio Stimulants",
+    "slug": "bio-stimulants",
+    "description": "Advanced plant growth boosters for better stress tolerance and development."
+  },
+  {
+    "id": "84c489bb-88ca-4dec-a39d-47a841301b96",
+    "createdAt": "2026-04-16T14:07:02.321Z",
+    "updatedAt": "2026-04-16T14:07:02.321Z",
+    "name": "Organic Fertilizers",
+    "slug": "organic-fertilizers",
+    "description": "Nature-based fertilizers for balanced nutrition and healthy crop growth."
+  },
+  {
+    "id": "ef8efb5c-1f45-46b0-8eb6-5e6f3f743266",
+    "createdAt": "2026-04-16T14:07:02.321Z",
+    "updatedAt": "2026-04-16T14:07:02.321Z",
+    "name": "Organic Manure",
+    "slug": "organic-manure",
+    "description": "Premium organic manure that improves soil texture and microbial activity."
+  },
+  {
+    "id": "2f941a75-d5fc-4bc6-b483-a7d5dd3353a8",
+    "createdAt": "2026-04-16T14:07:02.321Z",
+    "updatedAt": "2026-04-16T14:07:02.321Z",
+    "name": "Soil Conditioners",
+    "slug": "soil-conditioners",
+    "description": "Restore and maintain soil health with powerful conditioning inputs."
+  },
+  {
+    "id": "70530b4a-3078-42dc-af05-8893e0e7453a",
+    "createdAt": "2026-04-16T14:07:02.321Z",
+    "updatedAt": "2026-04-16T14:07:02.321Z",
+    "name": "Chelated Micronutrients",
+    "slug": "chelated-micronutrients",
+    "description": "Targeted chelated micronutrients for quick correction of nutrient deficiencies."
+  },
+  {
+    "id": "5f03c54b-4bbb-4ac2-a307-c1b6c63665da",
+    "createdAt": "2026-04-16T14:07:02.321Z",
+    "updatedAt": "2026-04-16T14:07:02.321Z",
+    "name": "Water Soluble Fertilizers",
+    "slug": "water-soluble-fertilizers",
+    "description": "Fast-acting water soluble fertilizers for fertigation and foliar applications."
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "soilgroup-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "csv-parse": "^6.2.1",
+    "mongodb": "^7.1.1"
+  },
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "import:products": "node src/importProductDetailsFromCsv.js"
+  }
+}

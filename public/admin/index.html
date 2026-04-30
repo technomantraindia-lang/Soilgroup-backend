@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soilgroup Admin Panel</title>
+    <link rel="stylesheet" href="/admin/styles.css" />
+  </head>
+  <body>
+    <div class="admin-app">
+      <aside class="admin-sidebar">
+        <div class="sidebar-top">
+          <p class="eyebrow">Backend Admin</p>
+          <h1>Soilgroup control room</h1>
+          <p class="sidebar-copy">
+            From here, you can view the dashboard, add categories, manage products, and track website inquiries.
+          </p>
+        </div>
+
+        <nav class="admin-nav hidden" id="adminNav">
+          <button type="button" class="nav-link active" data-view-link="dashboard">Dashboard</button>
+          <button type="button" class="nav-link" data-view-link="categories">Categories</button>
+          <button type="button" class="nav-link" data-view-link="products">Products</button>
+          <button type="button" class="nav-link" data-view-link="enquiries">Enquiries</button>
+          <button type="button" class="nav-link" data-view-link="settings">Settings</button>
+        </nav>
+
+        <div class="sidebar-note">
+          <strong>Admin URL</strong>
+          <span>http://localhost:4000/admin</span>
+        </div>
+      </aside>
+
+      <main class="admin-main">
+        <section class="panel auth-panel" id="authPanel">
+          <div class="panel-head">
+            <p class="eyebrow">Login</p>
+            <h2>Admin panel access</h2>
+            <p class="muted">Enter your admin username and password.</p>
+          </div>
+
+          <form id="loginForm" class="stack">
+            <label class="field">
+              <span>Username</span>
+              <input type="text" name="username" placeholder="admin" required />
+            </label>
+
+            <label class="field">
+              <span>Password</span>
+              <input type="password" name="password" placeholder="Enter password" required />
+            </label>
+
+            <p class="feedback hidden" id="loginFeedback"></p>
+
+            <button type="submit" class="primary-btn">Login</button>
+          </form>
+        </section>
+
+        <section class="workspace hidden" id="workspace">
+          <header class="workspace-top">
+            <div>
+              <p class="eyebrow dark" id="pageEyebrow">Overview</p>
+              <h2 id="pageTitle">Dashboard</h2>
+              <p class="workspace-copy" id="pageDescription">
+                Website snapshot and recent activity will appear here.
+              </p>
+            </div>
+            <div class="workspace-actions">
+              <button class="ghost-btn" id="refreshButton" type="button">Refresh</button>
+              <button class="ghost-btn" id="logoutButton" type="button">Logout</button>
+            </div>
+          </header>
+
+          <p class="feedback hidden" id="globalFeedback"></p>
+
+          <section class="view-panel" data-view-panel="dashboard">
+            <div class="stats-grid" id="statsGrid"></div>
+
+            <div class="recent-grid">
+              <article class="sub-panel">
+                <div class="sub-panel-head">
+                  <h3>Recent Categories</h3>
+                  <span class="muted">Latest additions</span>
+                </div>
+                <div id="recentCategories"></div>
+              </article>
+
+              <article class="sub-panel">
+                <div class="sub-panel-head">
+                  <h3>Recent Products</h3>
+                  <span class="muted">Latest additions</span>
+                </div>
+                <div id="recentProducts"></div>
+              </article>
+
+              <article class="sub-panel">
+                <div class="sub-panel-head">
+                  <h3>Recent Enquiries</h3>
+                  <span class="muted">Incoming leads</span>
+                </div>
+                <div id="recentEnquiries"></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="view-panel hidden" data-view-panel="categories">
+            <div class="content-grid">
+              <article class="sub-panel">
+                <div class="sub-panel-head">
+                  <h3>Add Category</h3>
+                  <span class="muted">Create product groups for the website</span>
+                </div>
+
+                <form id="categoryForm" class="stack">
+                  <label class="field">
+                    <span>Category Name</span>
+                    <input type="text" name="name" placeholder="Bio Fertilizers" required />
+                  </label>
+
+                  <label class="field">
+                    <span>Slug</span>
+                    <input type="text" name="slug" placeholder="bio-fertilizers" />
+                  </label>
+
+                  <label class="field">
+                    <span>Description</span>
+                    <textarea name="description" rows="5" placeholder="Short category description"></textarea>
+                  </label>
+
+                  <div class="form-actions">
+                    <button type="submit" class="primary-btn" id="categorySubmitButton">Add Category</button>
+                    <button type="button" class="ghost-btn hidden" id="categoryCancelButton">Cancel Edit</button>
+                  </div>
+                </form>
+              </article>
+
+              <article class="sub-panel">
+                <div class="sub-panel-head">
+                  <h3>Category List</h3>
+                  <div class="sub-panel-tools">
+                    <button type="button" class="ghost-btn search-toggle-btn" id="categorySearchToggle">Advanced Search</button>
+                    <input
+                      type="search"
+                      id="categorySearchInput"
+                      class="search-input hidden"
+                      placeholder="Search by name, slug, or description"
+                    />
+                    <span class="muted" id="categoryCountLabel">Categories: 0</span>
+                  </div>
+                </div>
+                <div class="data-list" id="categoryList"></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="view-panel hidden" data-view-panel="products">
+            <div class="content-grid">
+              <article class="sub-panel">
+                <div class="sub-panel-head">
+                  <h3>Add Product</h3>
+                  <span class="muted">Link products to a category</span>
+                </div>
+
+                <form id="productForm" class="stack">
+                  <label class="field">
+                    <span>Product Name</span>
+                    <input type="text" name="name" placeholder="Bio NPK" />
+                  </label>
+
+                  <label class="field">
+                    <span>Slug</span>
+                    <input type="text" name="slug" placeholder="bio-npk" />
+                  </label>
+
+                  <label class="field">
+                    <span>Category</span>
+                    <select name="categoryId" id="productCategorySelect" required>
+                      <option value="">Select category</option>
+                    </select>
+                  </label>
+
+                  <label class="field">
+                    <span>Primary Use</span>
+                    <textarea name="primaryUse" rows="3" placeholder="Complete biological NPK nutrition through live microbial activity"></textarea>
+                  </label>
+
+                  <label class="field">
+                    <span>What It Is & How It Works</span>
+                    <textarea name="whatItIs" rows="4" placeholder="Detailed description of the product and how it works..."></textarea>
+                  </label>
+
+                  <label class="field">
+                    <span>Key Benefits (One per line)</span>
+                    <textarea name="keyBenefits" rows="4" placeholder="Benefit 1&#10;Benefit 2&#10;Benefit 3"></textarea>
+                  </label>
+
+                  <label class="field">
+                    <span>When To Use (One per line)</span>
+                    <textarea name="whenToUse" rows="3" placeholder="During early vegetative growth&#10;Before transplanting"></textarea>
+                  </label>
+
+                  <label class="field">
+                    <span>Recommended Crops (One per line)</span>
+                    <textarea name="recommendedCrops" rows="3" placeholder="Cereals & millets&#10;Fruits & vegetables"></textarea>
+                  </label>
+
+                  <label class="field">
+                    <span>Application & Dosage (Advanced JSON Array)</span>
+                    <textarea name="applicationDosage" rows="3" placeholder='[{"method": "Soil Application", "steps": ["Step 1", "Step 2"]}]'></textarea>
+                  </label>
+
+                  <label class="field">
+                    <span>Learn More / Deficiencies (Advanced JSON Array)</span>
+                    <textarea name="learnMore" rows="3" placeholder='[{"title": "Deficiency Leads To", "content": "Yellowing of leaves..."}]'></textarea>
+                  </label>
+
+
+                  <label class="field">
+                    <span>Contents (Parameter | Specification)</span>
+                    <textarea name="contentsRows" rows="6" placeholder="Azospirillum | CFU 2 × 10^6 cells/ml&#10;Phosphate Solubilizing Bacteria (PSB) | CFU 2 × 10^6 cells/ml"></textarea>
+                  </label>
+
+                  <label class="field">
+                    <span>Contents Note</span>
+                    <textarea name="contentsNote" rows="2" placeholder="Tri-vector microbial consortium for N, P &amp; K availability"></textarea>
+                  </label>
+
+                  <label class="field">
+                    <span>Available Sizes</span>
+                    <div class="size-editor-row">
+                      <input
+                        type="text"
+                        id="productSizeInput"
+                        placeholder="e.g., 500 ml"
+                      />
+                      <button type="button" class="primary-btn size-add-btn" id="addProductSizeButton">Add</button>
+                    </div>
+                    <div class="size-chip-list" id="productSizesList"></div>
+                  </label>
+
+                  <label class="field">
+                    <span>Image Upload</span>
+                    <input
+                      type="file"
+                      id="productImageInput"
+                      accept="image/*"
+                    />
+                    <img id="productImagePreview" class="image-preview hidden" alt="Product image preview" />
+                  </label>
+
+                  <label class="field">
+                    <span>Image URL</span>
+                    <input type="url" name="imageUrl" placeholder="https://example.com/product-image.jpg" />
+                  </label>
+
+                  <label class="field">
+                    <span>Status</span>
+                    <select name="status">
+                      <option value="published" selected>Published</option>
+                      <option value="draft">Draft</option>
+                      <option value="archived">Archived</option>
+                    </select>
+                  </label>
+
+                  <div class="form-actions">
+                    <button type="submit" class="primary-btn" id="productSubmitButton">Add Product</button>
+                    <button type="button" class="ghost-btn hidden" id="productCancelButton">Cancel Edit</button>
+                  </div>
+                </form>
+              </article>
+
+              <article class="sub-panel">
+                <div class="sub-panel-head">
+                  <h3>Product List</h3>
+                  <div class="sub-panel-tools">
+                    <button type="button" class="ghost-btn search-toggle-btn" id="productSearchToggle">Advanced Search</button>
+                    <input
+                      type="search"
+                      id="productSearchInput"
+                      class="search-input hidden"
+                      placeholder="Search by name, slug, category, or status"
+                    />
+                    <span class="muted" id="productCountLabel">Products: 0</span>
+                  </div>
+                </div>
+                <div class="data-list" id="productList"></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="view-panel hidden" data-view-panel="enquiries">
+            <div class="sub-panel">
+              <div class="sub-panel-head">
+                <h3>Website Enquiries</h3>
+                <span class="muted">Track incoming messages and lead status</span>
+              </div>
+
+              <div class="toolbar">
+                <div class="filters" id="filters">
+                  <button type="button" class="filter-btn active" data-filter="all">All</button>
+                  <button type="button" class="filter-btn" data-filter="new">New</button>
+                  <button type="button" class="filter-btn" data-filter="in-progress">In Progress</button>
+                  <button type="button" class="filter-btn" data-filter="resolved">Resolved</button>
+                  <button type="button" class="filter-btn" data-filter="archived">Archived</button>
+                </div>
+              </div>
+
+              <div class="data-list enquiry-list" id="enquiryList"></div>
+            </div>
+          </section>
+
+          <section class="view-panel hidden" data-view-panel="settings">
+            <article class="sub-panel">
+              <div class="sub-panel-head">
+                <h3>Admin Settings</h3>
+                <span class="muted" id="adminStorageLabel">Password storage: checking</span>
+              </div>
+
+              <form id="credentialsForm" class="stack">
+                <label class="field">
+                  <span>Admin Username</span>
+                  <input type="text" name="username" placeholder="admin" required />
+                </label>
+
+                <label class="field">
+                  <span>Current Password</span>
+                  <input type="password" name="currentPassword" placeholder="Current password" required />
+                </label>
+
+                <label class="field">
+                  <span>New Password</span>
+                  <input type="password" name="newPassword" placeholder="At least 8 characters" minlength="8" required />
+                </label>
+
+                <label class="field">
+                  <span>Confirm New Password</span>
+                  <input type="password" name="confirmPassword" placeholder="Repeat new password" minlength="8" required />
+                </label>
+
+                <div class="form-actions">
+                  <button type="submit" class="primary-btn" id="credentialsSubmitButton">Save Credentials</button>
+                </div>
+              </form>
+            </article>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="/admin/app.js"></script>
+  </body>
+  </html>
