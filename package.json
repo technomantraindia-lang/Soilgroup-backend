@@ -8,6 +8,7 @@
     "mongodb": "^7.1.1"
   },
   "scripts": {
+    "build": "node --check src/server.js",
     "dev": "node src/server.js",
     "start": "node src/server.js",
     "import:products": "node src/importProductDetailsFromCsv.js"
