@@ -50,7 +50,7 @@ function loadEnvFile(filePath, { override = false } = {}) {
 function splitOrigins(value) {
   return value
     .split(',')
-    .map((item) => item.trim())
+    .map((item) => item.trim().replace(/\/+$/, ''))
     .filter(Boolean)
 }
 
